@@ -1,0 +1,32 @@
+version: '3' 
+services:
+    mydp:
+       image: drupal:8.8
+       restart: always
+       ports:
+          - 8080:80
+       depends_on:
+          - dbos1
+       volumes:
+          - dp_modules:/var/www/html/modules
+          - dp_profiles:/var/www/html/profiles
+          - dp_themes:/var/www/html/themes
+          - dp_sites:/var/www/html/sites
+   
+     dbos1:
+        image: mysql:5.7
+        restart: always
+        volumes:
+            - mysql_storage:/var/lib/mysql
+        environment:
+           MYSQL_ROOT_PASSWORD: rootpass
+           MYSQL_USER: prince
+           MYSQL_PASSWORD: redhat
+           MYSQL_DATABASE: mydb
+
+volumes:
+  dp_modules:
+  dp_profiles:
+  dp_themes:
+  dp_sites:
+  mysql_storage:
